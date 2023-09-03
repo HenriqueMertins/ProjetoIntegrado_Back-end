@@ -97,6 +97,7 @@ export const loginPersonal = async (req, res) => {
       res.status(400).json({ erro: mensaErroPadrao })
     }
   } catch (error) {
+    console.log(error)
     res.status(400).json(error)
   }
 }
