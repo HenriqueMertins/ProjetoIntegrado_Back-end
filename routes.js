@@ -18,8 +18,10 @@ router.get('/alunos', verificaLogin, alunoIndex)
       .put('/alunos/:id', verificaLogin, alunoUpdate)
       .put('/alunos', verificaLogin, alunoAlteraSenha)
 
-router.get('/personal/login', loginPersonal)
-router.get('/aluno/login', loginAluno)
+router.post('/personal/login', loginPersonal)
+// router.get('/personal/login', loginPersonal)
+router.post('/aluno/login', loginAluno)
+// router.get('/aluno/login', loginAluno)
       
 
 export default router
