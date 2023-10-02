@@ -15,7 +15,7 @@ export const Aluno = sequelize.define('Aluno', {
     allowNull: false
   },
   cpf: {
-    type: DataTypes.INTEGER(45),
+    type: DataTypes.STRING(45),
     allowNull: false,
     unique: true
   },
