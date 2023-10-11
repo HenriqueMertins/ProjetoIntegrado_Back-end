@@ -6,14 +6,14 @@ import { loginAluno, loginPersonal } from "./controllers/loginController.js"
 
 const router = Router()
 
-router.get('/personais', verificaLogin, personalIndex)
-      .post('/personais', verificaLogin, personalCreate)
+router.get('/personais', personalIndex)
+      .post('/personais', personalCreate)
       .delete('/personais/:id', verificaLogin, personalDelete)
       .put('/personais/:id', verificaLogin, personalUpdate)
       .put('/personais', verificaLogin, personalAlteraSenha)
 
-router.get('/alunos', verificaLogin, alunoIndex)
-      .post('/alunos', verificaLogin, alunoCreate)
+router.get('/alunos', alunoIndex)
+      .post('/alunos', alunoCreate)
       .delete('/alunos/:id', verificaLogin, alunoDelete)
       .put('/alunos/:id', verificaLogin, alunoUpdate)
       .put('/alunos', verificaLogin, alunoAlteraSenha)
