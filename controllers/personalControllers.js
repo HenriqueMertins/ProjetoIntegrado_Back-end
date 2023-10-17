@@ -103,6 +103,7 @@ export const personalIndex = async (req, res) => {
 export const personalCreate = async (req, res) => {
   const { nome, cpf, cref, fone, senha, ativo } = req.body
 
+
   if (!nome || !cpf || !cref || !fone || !senha || !ativo) {
     res.status(400).json({ id: 0, msg: "Erro... Informe os dados" })
     return
