@@ -3,6 +3,8 @@ import { personalAlteraSenha, personalCreate, personalDelete, personalIndex, per
 import { alunoIndex, alunoCreate, alunoDelete, alunoUpdate, alunoAlteraSenha } from "./controllers/alunoController.js"
 import { verificaLogin } from "./middlewares/verificaLogin.js"
 import { loginAluno, loginPersonal } from "./controllers/loginController.js"
+import { treinoCreate, treinoDelete, treinoIndex, treinolUpdate } from "./controllers/treinoController.js"
+import { alunoPersonalIndex, personalAlunoIndex } from "./controllers/alunosPersonalController.js"
 
 const router = Router()
 
@@ -18,10 +20,20 @@ router.get('/alunos', alunoIndex)
       .put('/alunos/:id', verificaLogin, alunoUpdate)
       .put('/alunos', verificaLogin, alunoAlteraSenha)
 
+router.get('/treinos', treinoIndex)
+      .post('/treinos', treinoCreate)
+      .delete('treinos', treinoDelete)
+      .put('treinos', treinolUpdate)
+
+router.get('/alunosPersonal/:personal_id', alunoPersonalIndex)
+      .get('/personalAlunos/:aluno_id', personalAlunoIndex)
+
 router.post('/personal/login', loginPersonal)
 // router.get('/personal/login', loginPersonal)
 router.post('/aluno/login', loginAluno)
 // router.get('/aluno/login', loginAluno)
+
+
       
 
 export default router
