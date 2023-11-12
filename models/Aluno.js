@@ -4,7 +4,7 @@ import { Personal } from './Personal.js';
 
 import bcrypt from 'bcrypt'
 
-export const Aluno = sequelize.define('Aluno', {
+export const Aluno = sequelize.define('aluno', {
   id: {
     type: DataTypes.INTEGER, //integer ou char
     primaryKey: true,
