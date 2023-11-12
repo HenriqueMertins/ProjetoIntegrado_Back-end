@@ -10,13 +10,13 @@ const router = Router()
 
 router.get('/personais', personalIndex)
       .post('/personais', personalCreate)
-      .delete('/personais/:id', verificaLogin, personalDelete)
+      .delete('/personais/:id',  personalDelete)
       .put('/personais/:id', verificaLogin, personalUpdate)
       .put('/personais', verificaLogin, personalAlteraSenha)
 
 router.get('/alunos', alunoIndex)
       .post('/alunos', alunoCreate)
-      .delete('/alunos/:id', verificaLogin, alunoDelete)
+      .delete('/alunos/:id',  alunoDelete)
       .put('/alunos/:id', verificaLogin, alunoUpdate)
       .put('/alunos', verificaLogin, alunoAlteraSenha)
 
@@ -32,8 +32,5 @@ router.post('/personal/login', loginPersonal)
 // router.get('/personal/login', loginPersonal)
 router.post('/aluno/login', loginAluno)
 // router.get('/aluno/login', loginAluno)
-
-
-      
 
 export default router
