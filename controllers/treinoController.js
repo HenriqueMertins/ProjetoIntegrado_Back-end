@@ -14,17 +14,17 @@ export const treinoIndex = async (req, res) => {
 }
 
 export const treinoCreate = async (req, res) => {
-  const { nome, carga, serie, rep  } = req.body
+  const { personal_id, nome, carga, serie, rep  } = req.body
 
 
-  if (!nome || !carga || !serie || !rep) {
+  if (!personal_id ||!nome || !carga || !serie || !rep) {
     res.status(400).json({ id: 0, msg: "Erro... Informe os dados" })
     return
   }
 
   try {
     const treino = await Treino.create({
-        nome, carga, serie, rep
+        personal_id, nome, carga, serie, rep
     });
     res.status(201).json(treino)
   } catch (error) {
@@ -51,9 +51,9 @@ export const treinoDelete = async (req, res) => {
 export const treinolUpdate = async (req, res) => {
   const { id } = req.params;
 
-  const { nome, carga, serie, rep } = req.body
+  const { personal_id, nome, carga, serie, rep } = req.body
 
-  if (!nome || !carga || !serie || !rep) {
+  if (!personal_id || !nome || !carga || !serie || !rep) {
     res.status(400).json(
       {
         id: 0,
@@ -69,7 +69,7 @@ export const treinolUpdate = async (req, res) => {
       res.status(400).json({ erro: "Erro... Id inválido" })
       return
     }
-    treino.update({ nome: nome, carga: carga, serie: serie, rep: rep})
+    treino.update({ personal_id:personal_id, nome: nome, carga: carga, serie: serie, rep: rep})
     // treino.save() //testar se pode tirar isso aqui
 
 

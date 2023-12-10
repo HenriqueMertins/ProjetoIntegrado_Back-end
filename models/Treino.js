@@ -1,7 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../databases/conecta.js';
-
-import bcrypt from 'bcrypt'
+import { Personal } from './Personal.js';
 
 export const Treino = sequelize.define('Treino', {
   id: {
@@ -25,12 +24,20 @@ export const Treino = sequelize.define('Treino', {
     type: DataTypes.INTEGER(45),
     allowNull: false
   }
-},
-//    {
-//     tableName: "treinos"
-  
-// }
-);
+});
+
+Treino.belongsTo(Personal, {
+  foreignKey: {
+    name: 'personal_id',
+    allowNull: false
+  },
+  onDelete: 'RESTRICT',
+  onUpdate: 'CASCADE'
+})
+
+Personal.hasMany(Treino, {
+  foreignKey: 'personal_id'
+})
 
 
 
