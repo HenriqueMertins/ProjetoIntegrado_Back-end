@@ -23,7 +23,15 @@ export const Treino = sequelize.define('Treino', {
   rep: {
     type: DataTypes.INTEGER(45),
     allowNull: false
-  }
+  },
+  dia: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    validate: {
+      min: 0,
+      max: 6,
+    },
+  },
 });
 
 Treino.belongsTo(Personal, {

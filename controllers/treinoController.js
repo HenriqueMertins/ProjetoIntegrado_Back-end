@@ -14,25 +14,20 @@ export const treinoIndex = async (req, res) => {
 }
 
 export const treinoCreate = async (req, res) => {
-  const { personal_id, nome, carga, serie, rep  } = req.body
+  const { personal_id, nome, carga, serie, rep, dia  } = req.body
 
 
-  if (!personal_id ||!nome || !carga || !serie || !rep) {
+  if (!personal_id ||!nome || !carga || !serie || !rep || !dia) {
     res.status(400).json({ id: 0, msg: "Erro... Informe os dados" })
     return
   }
 
   try {
     const treino = await Treino.create({
-        personal_id, nome, carga, serie, rep
+        personal_id, nome, carga, serie, rep, dia
     });
     res.status(201).json(treino)
   } catch (error) {
-    // if (error.type = "unique violatio") {
-    //   res.status(406).json({ id: 0, msg: "Erro... cref ou cpf já cadastrado" })
-    // } else {
-    //   res.status(400).send(error)
-    // }
   }
 }
 
@@ -51,13 +46,13 @@ export const treinoDelete = async (req, res) => {
 export const treinolUpdate = async (req, res) => {
   const { id } = req.params;
 
-  const { personal_id, nome, carga, serie, rep } = req.body
+  const { personal_id, nome, carga, serie, rep, dia } = req.body
 
-  if (!personal_id || !nome || !carga || !serie || !rep) {
+  if (!personal_id || !nome || !carga || !serie || !rep || !dia) {
     res.status(400).json(
       {
         id: 0,
-        msg: "Erro... informe nome,  carga, serie e rep"
+        msg: "Erro... informe id do personal, nome, carga, serie, rep e dia"
       })
     return
   }
@@ -69,8 +64,7 @@ export const treinolUpdate = async (req, res) => {
       res.status(400).json({ erro: "Erro... Id inválido" })
       return
     }
-    treino.update({ personal_id:personal_id, nome: nome, carga: carga, serie: serie, rep: rep})
-    // treino.save() //testar se pode tirar isso aqui
+    treino.update({ personal_id:personal_id, nome: nome, carga: carga, serie: serie, rep: rep, dia: dia})
 
 
     res.status(200).json({ id, msg: "Ok! Update com sucesso" })
