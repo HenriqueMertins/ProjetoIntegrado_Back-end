@@ -72,3 +72,16 @@ export const treinolUpdate = async (req, res) => {
     res.status(400).json(error)
   }
 }
+
+export const treinoAlunoIndex = async (req, res) => {
+  const { personal_id, dia } = req.params;
+
+  try {
+    const treinos = await Treino.findAll({ where: { personal_id, dia } });
+
+    res.status(200).json(treinos);
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ id: 0, msg: "Erro: " + error.message })
+  }
+};
