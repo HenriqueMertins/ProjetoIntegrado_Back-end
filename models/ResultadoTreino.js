@@ -25,10 +25,13 @@ export const ResultadoTreino = sequelize.define('resultadoTreino', {
     data: {
         type: DataTypes.DATE,
         allowNull: false,
-    },
-    
-    "uniqueKeys": { "col1_col2_unique": { "fields": ["data","aluno_id", "personal_id"], customIndex: true } }
-
+    }
+}, {
+    uniqueKeys: {
+        unique_constraint_name: {
+            fields: ['data', 'aluno_id', 'treino_id'], customIndex: true 
+        }
+    }
 });
 
 ResultadoTreino.belongsTo(Aluno, {
@@ -38,11 +41,11 @@ ResultadoTreino.belongsTo(Aluno, {
     },
     onDelete: 'RESTRICT',
     onUpdate: 'CASCADE'
-})
+});
 
 Aluno.hasMany(ResultadoTreino, {
     foreignKey: 'aluno_id'
-})
+});
 
 ResultadoTreino.belongsTo(Treino, {
     foreignKey: {
@@ -51,8 +54,8 @@ ResultadoTreino.belongsTo(Treino, {
     },
     onDelete: 'RESTRICT',
     onUpdate: 'CASCADE'
-})
+});
 
 Treino.hasMany(ResultadoTreino, {
     foreignKey: 'treino_id'
-})
+});

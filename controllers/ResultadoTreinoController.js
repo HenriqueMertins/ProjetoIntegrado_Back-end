@@ -9,3 +9,5 @@ export const ResultadoTreinoIndex = async (req, res) => {
     res.status(400).send(error);
   }
 };
+
+// aluno_id, personal_id, data(dia/mes/ano), carga, serie, repeticao, 
