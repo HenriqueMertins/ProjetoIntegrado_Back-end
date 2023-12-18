@@ -23,7 +23,7 @@ export const ResultadoTreino = sequelize.define('resultadoTreino', {
         allowNull: false
     },
     data: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY, 
         allowNull: false,
     }
 }, {

@@ -5,7 +5,7 @@ import { verificaLogin } from "./middlewares/verificaLogin.js"
 import { loginAluno, loginPersonal } from "./controllers/loginController.js"
 import { treinoAlunoIndex, treinoCreate, treinoDelete, treinoIndex, treinolUpdate } from "./controllers/treinoController.js"
 import { alunoPersonalIndex, personalAlunoIndex } from "./controllers/alunosPersonalController.js"
-import { ResultadoTreinoIndex } from "./controllers/ResultadoTreinoController.js"
+import { ResultadoTreinoCreate, ResultadoTreinoDelete, ResultadoTreinoIndex, ResultadoTreinoUpdate } from "./controllers/ResultadoTreinoController.js"
 
 const router = Router()
 
@@ -31,6 +31,10 @@ router.get('/alunosPersonal/:personal_id', alunoPersonalIndex)
       .get('/personalAlunos/:aluno_id', personalAlunoIndex)
 
 router.get('/resultadoTreino', ResultadoTreinoIndex)
+      .post('/resultadoTreino', ResultadoTreinoCreate)
+      .delete('resultadoTreino', ResultadoTreinoDelete)
+      .put('resultadoTreino', ResultadoTreinoUpdate)
+
 
 router.post('/personal/login', loginPersonal)
 // router.get('/personal/login', loginPersonal)
