@@ -85,3 +85,4 @@ export const treinoAlunoIndex = async (req, res) => {
     res.status(400).json({ id: 0, msg: "Erro: " + error.message })
   }
 };
+

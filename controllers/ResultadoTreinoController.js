@@ -73,3 +73,12 @@ export const resultadoTreinoAlunoIndex = async (req, res) => {
 // from Treinos t  left join resultadoTreinos rt  on t.id=rt.treino_id 
 // where t.personal_id =1 and t.dia =1
 // and (rt.aluno_id is null or rt.aluno_id =1)
+
+// select t.id treinoid, t.nome, t.carga, t.serie,t.rep,t.dia, 
+//      rt.id resultid, rt.carga resulcarga, rt.serie resulserie, rt.rep resulrep, rt.data resuldata  
+// from Treinos t  left join resultadoTreinos rt on t.id=rt.treino_id   
+// where t.personal_id = 1 and t.dia = 1 
+// and (rt.aluno_id is null or rt.aluno_id =1)
+// and (rt.data is null or rt.data ='2023-12-18')
+
+// http://192.168.100.28:3000/resultadoTreino/1/1/1/2023-12-11
