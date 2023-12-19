@@ -1,8 +1,8 @@
 import { Sequelize } from 'sequelize';
 
 export const sequelize = new Sequelize(
-  "training_calendar", "root", "teste", {
+  "training_calendar", "root", "teste12", {
   dialect: "mysql",
-  host: "192.168.100.4",
+  host: "127.0.0.1",
   port: 3306
 });
