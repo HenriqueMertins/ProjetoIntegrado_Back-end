@@ -38,7 +38,7 @@ export const loginAluno = async (req, res) => {
         { expiresIn: "1h" }
       )
       const idLogin = aluno.id
-      const personalId = aluno.personal_id 
+      const personalId = aluno.personal_id
       res.status(200).json({ msg: "Ok. Logado", idLogin, personalId, token })
     } else {
 
@@ -86,8 +86,9 @@ export const loginPersonal = async (req, res) => {
         process.env.JWT_KEY,
         { expiresIn: "1h" }
       )
-      const idLogin = personal.id 
-      res.status(200).json({ msg: "Ok. Logado", idLogin , token })
+      const idLogin = personal.id
+      const personalId = personal.id
+      res.status(200).json({ msg: "Ok. Logado", idLogin, personalId, token })
     } else {
 
       // registra um log desta tentativa de acesso
