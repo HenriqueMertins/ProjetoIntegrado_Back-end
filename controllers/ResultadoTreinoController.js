@@ -70,7 +70,7 @@ export const resultadoTreinoAlunoIndex = async (req, res) => {
         0 resulcarga,
         0 resulserie,
         0 resulrep,
-        0 resuldata,
+        '1970-01-01' resuldata,
         false as realizado
       FROM Treinos t
       WHERE t.personal_id = ${personal_id}
