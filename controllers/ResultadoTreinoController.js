@@ -52,11 +52,11 @@ export const resultadoTreinoAlunoIndex = async (req, res) => {
         rt.rep AS resulrep,
         rt.data AS resuldata
       FROM Treinos t
-      LEFT JOIN resultadoTreinos rt ON t.id = rt.treino_id
+      INNER JOIN resultadoTreinos rt ON t.id = rt.treino_id
       WHERE t.personal_id = ${personal_id}
         AND t.dia = ${dia}
-        AND (rt.aluno_id IS NULL OR rt.aluno_id = ${aluno_id})
-        AND (rt.data IS NULL OR rt.data = '${data}')
+        AND  rt.aluno_id = ${aluno_id}
+        AND  rt.data = '${data}'
     `, { type: QueryTypes.SELECT });
 
     const treinosNaoFeitos = await sequelize.query(`
@@ -66,7 +66,12 @@ export const resultadoTreinoAlunoIndex = async (req, res) => {
         t.carga,
         t.serie,
         t.rep,
-        t.dia
+        t.dia,
+        0 resultid,
+        0 resulcarga,
+        0 resulserie,
+        0 resulrep,
+        0 resuldata
       FROM Treinos t
       WHERE t.personal_id = ${personal_id}
         AND t.dia = ${dia}

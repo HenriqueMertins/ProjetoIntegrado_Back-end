@@ -38,7 +38,8 @@ export const loginAluno = async (req, res) => {
         { expiresIn: "1h" }
       )
       const idLogin = aluno.id
-      res.status(200).json({ msg: "Ok. Logado", idLogin, token })
+      const personalId = aluno.personal_id 
+      res.status(200).json({ msg: "Ok. Logado", idLogin, personalId, token })
     } else {
 
       // registra um log desta tentativa de acesso
@@ -59,7 +60,7 @@ export const loginAluno = async (req, res) => {
 export const loginPersonal = async (req, res) => {
   const { cpf, senha } = req.body
   // evita de que a mensagem dê "pistas" para um possível invasor
-  const mensaErroPadrao = "Erro... CPF ou senha inválidooo"
+  const mensaErroPadrao = "Erro... CPF ou senha inválido"
   if (!cpf || !senha) {
     //    res.status(400).json({ erro: "Informe cpf e senha de acesso" })
     res.status(400).json({ erro: mensaErroPadrao })
