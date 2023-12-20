@@ -50,16 +50,15 @@ export const resultadoTreinoAlunoIndex = async (req, res) => {
         rt.carga AS resulcarga,
         rt.serie AS resulserie,
         rt.rep AS resulrep,
-        rt.data AS resuldata
+        rt.data AS resuldata,
+        true as realizado
       FROM Treinos t
       INNER JOIN resultadoTreinos rt ON t.id = rt.treino_id
       WHERE t.personal_id = ${personal_id}
         AND t.dia = ${dia}
         AND  rt.aluno_id = ${aluno_id}
         AND  rt.data = '${data}'
-    `, { type: QueryTypes.SELECT });
-
-    const treinosNaoFeitos = await sequelize.query(`
+      union 
       SELECT
         t.id AS treinoid,
         t.nome,
@@ -71,7 +70,8 @@ export const resultadoTreinoAlunoIndex = async (req, res) => {
         0 resulcarga,
         0 resulserie,
         0 resulrep,
-        0 resuldata
+        '1970-01-01' resuldata,
+        false as realizado
       FROM Treinos t
       WHERE t.personal_id = ${personal_id}
         AND t.dia = ${dia}
@@ -84,7 +84,7 @@ export const resultadoTreinoAlunoIndex = async (req, res) => {
         )
     `, { type: QueryTypes.SELECT });
 
-    res.status(200).json({ treinosFeitos, treinosNaoFeitos });
+    res.status(200).json( treinosFeitos );
   } catch (error) {
     console.error(error);
     res.status(400).json({ id: 0, msg: "Erro: " + error.message });
