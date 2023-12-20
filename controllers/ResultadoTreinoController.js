@@ -3,6 +3,7 @@ import { ResultadoTreino } from "../models/ResultadoTreino.js";
 import { sequelize } from '../databases/conecta.js';
 import { QueryTypes } from 'sequelize';
 
+
 export const ResultadoTreinoIndex = async (req, res) => {
   try {
     const resultados = await ResultadoTreino.findAll();
@@ -34,25 +35,77 @@ export const ResultadoTreinoCreate = async (req, res) => {
 };
 
 export const resultadoTreinoAlunoIndex = async (req, res) => {
-  const { personal_id,aluno_id,dia,data } = req.params;
+  const { personal_id, aluno_id, dia, data } = req.params;
 
   try {
+    const treinosFeitos = await sequelize.query(`
+      SELECT
+        t.id AS treinoid,
+        t.nome,
+        t.carga,
+        t.serie,
+        t.rep,
+        t.dia,
+        rt.id AS resultid,
+        rt.carga AS resulcarga,
+        rt.serie AS resulserie,
+        rt.rep AS resulrep,
+        rt.data AS resuldata
+      FROM Treinos t
+      LEFT JOIN resultadoTreinos rt ON t.id = rt.treino_id
+      WHERE t.personal_id = ${personal_id}
+        AND t.dia = ${dia}
+        AND (rt.aluno_id IS NULL OR rt.aluno_id = ${aluno_id})
+        AND (rt.data IS NULL OR rt.data = '${data}')
+    `, { type: QueryTypes.SELECT });
 
-   
-    const resultados = await sequelize.query(`select t.id treinoid, t.nome, t.carga, t.serie,t.rep,t.dia,`
-    + ` rt.id resultid, rt.carga resulcarga, rt.serie resulserie, rt.rep resulrep, rt.data resuldata `
-    +` from Treinos t  left join resultadoTreinos rt on t.id=rt.treino_id  `
-    +` where t.personal_id = ${personal_id} and t.dia = ${dia} `
-    +` and (rt.aluno_id is null or rt.aluno_id =${aluno_id})`
-    +` and (rt.data is null or rt.data ='${data}')`,
-     { type: QueryTypes.SELECT });
+    const treinosNaoFeitos = await sequelize.query(`
+      SELECT
+        t.id AS treinoid,
+        t.nome,
+        t.carga,
+        t.serie,
+        t.rep,
+        t.dia
+      FROM Treinos t
+      WHERE t.personal_id = ${personal_id}
+        AND t.dia = ${dia}
+        AND NOT EXISTS (
+          SELECT 1
+          FROM resultadoTreinos rt
+          WHERE t.id = rt.treino_id
+            AND rt.aluno_id = ${aluno_id}
+            AND rt.data = '${data}'
+        )
+    `, { type: QueryTypes.SELECT });
 
-    res.status(200).json(resultados);
+    res.status(200).json({ treinosFeitos, treinosNaoFeitos });
   } catch (error) {
     console.error(error);
-    res.status(400).json({ id: 0, msg: "Erro: " + error.message })
+    res.status(400).json({ id: 0, msg: "Erro: " + error.message });
   }
 };
+
+// export const resultadoTreinoAlunoIndex = async (req, res) => {
+//   const { personal_id,aluno_id,dia,data } = req.params;
+
+//   try {
+
+   
+//     const resultados = await sequelize.query(`select t.id treinoid, t.nome, t.carga, t.serie,t.rep,t.dia,`
+//     + ` rt.id resultid, rt.carga resulcarga, rt.serie resulserie, rt.rep resulrep, rt.data resuldata `
+//     +` from Treinos t  left join resultadoTreinos rt on t.id=rt.treino_id  `
+//     +` where t.personal_id = ${personal_id} and t.dia = ${dia} `
+//     +` and (rt.aluno_id is null or rt.aluno_id =${aluno_id})`
+//     +` and (rt.data is null or rt.data ='${data}')`,
+//      { type: QueryTypes.SELECT });
+
+//     res.status(200).json(resultados);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(400).json({ id: 0, msg: "Erro: " + error.message })
+//   }
+// };
 
 
 
